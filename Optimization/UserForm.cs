@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using wpf = _2dWPF;
+using System.Data;
+using System.Data.SQLite;
 
 namespace Optimization
 {
     public partial class UserForm : Form
     {
+        private SQLiteConnection sql_con = new SQLiteConnection("DataSource=optimization.db;Version=3;New=False;Compress=True");
+
         public UserForm()
         {
             InitializeComponent();
+            LoadData("params", dataGridParams);
         }
 
         private void CalculationButton_Click(object sender, EventArgs e)
@@ -39,6 +44,7 @@ namespace Optimization
                 workShift = (double)WorkShiftNum.Value,
                 costPrice = (double)CostPriceNum.Value,
                 accuracy = (double)AccuracyNum.Value,
+                maxCount = (double)MaxCountNum.Value
             };
 
             if (inputData.leftBorderA1 > inputData.rightBorderA1 || inputData.leftBorderA2 > inputData.rightBorderA2)
@@ -57,9 +63,14 @@ namespace Optimization
             Point result;
             if (isBox)
                 result = BoxMethod.GetMinimumValue(inputData);
-            else 
+            else
                 result = HalfDivisionMethod.GetMinimumValue(inputData);
 
+            if (result == null)
+            {
+                MessageBox.Show("Программа не смогла найти экстремум,\n попробуйте на других параметрах", "Ошибка!");
+                return;
+            }
             double minPrice = Math.Round(inputData.workShift * inputData.costPrice * result.Value, 0);
             double minF = Math.Round(result.Value, 3);
             double optimalA1 = Math.Round(result.X, 3);
@@ -85,6 +96,52 @@ namespace Optimization
             //labelDrawing.Text = "Отрисовка окончена";
 
 
+        }
+
+        private void LoadData(string table, DataGridView dataGrid)
+        {
+            sql_con.Open();
+            SQLiteCommand sql_cmd = sql_con.CreateCommand();
+            string CommandText = "select * from " + table;
+            SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
+            DataSet DS = new DataSet();
+            DataTable DT = new DataTable();
+            DS.Reset();
+            DB.Fill(DS);
+            DT = DS.Tables[0];
+            dataGrid.DataSource = DT;
+            sql_con.Close();
+        }
+
+        private void dataGridParams_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                LeftBorderA1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[1].Value.ToString());
+                RightBorderA1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[2].Value.ToString());
+                LeftBorderA2Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[3].Value.ToString());
+                RightBorderA2Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[4].Value.ToString());
+                StepNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[5].Value.ToString());
+
+                alphaNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[6].Value.ToString());
+                alpha1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[7].Value.ToString());
+                bettaNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[8].Value.ToString());
+                betta1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[9].Value.ToString());
+                muNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[10].Value.ToString());
+                mu1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[11].Value.ToString());
+                NNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[12].Value.ToString());
+                V1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[13].Value.ToString());
+                V2Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[14].Value.ToString());
+
+                WorkShiftNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[15].Value.ToString());
+                CostPriceNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[16].Value.ToString());
+                AccuracyNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[17].Value.ToString());
+                MaxCountNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[18].Value.ToString());
+            }
+            catch
+            {
+
+            }
         }
     }
 }

@@ -19,7 +19,9 @@ namespace Optimization
                        Math.Pow(inputs.alpha1 * (inputs.betta1 * x + y * y - inputs.mu1 * inputs.V2), inputs.N);
             }
 
-            var points = GetPoints(inputs.leftBorderA1, inputs.leftBorderA2, inputs.rightBorderA1, inputs.rightBorderA2, func);
+            var points = GetPoints(inputs.leftBorderA1, inputs.leftBorderA2, inputs.rightBorderA1, inputs.rightBorderA2, func, inputs.maxCount);
+            if (points == null) return null;
+            int countTry = 0;
             while (true)
             {
                 points = points.OrderBy(point => point.Value).ToList();
@@ -35,6 +37,9 @@ namespace Optimization
                     finalPoint = points[0];
                     break;
                 }
+
+                countTry++;
+                if (countTry == inputs.maxCount) { return null; }
 
                 double x0 = 2.3 * Cx - 1.3 * points[3].X;
                 double y0 = 2.3 * Cy - 1.3 * points[3].Y;
@@ -56,8 +61,9 @@ namespace Optimization
             return finalPoint;
         }
 
-        private static List<Point> GetPoints(double minX, double minY, double maxX, double maxY, Func<double, double, double> func)
+        private static List<Point> GetPoints(double minX, double minY, double maxX, double maxY, Func<double, double, double> func, double maxCount)
         {
+            int countTry = 0;
             var random = new Random();
             while (true)
             {
@@ -88,6 +94,8 @@ namespace Optimization
                     }
                     return correctPoints;
                 }
+                countTry++;
+                if (countTry == maxCount) { return null; }
             }
         }
     }

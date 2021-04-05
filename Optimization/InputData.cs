@@ -27,5 +27,6 @@ namespace Optimization
         public double workShift;
         public double costPrice;
         public double accuracy;
+        public double maxCount;
     }
 }

@@ -82,6 +82,8 @@
             this.tabPageResult = new System.Windows.Forms.TabPage();
             this.labelDrawing = new System.Windows.Forms.Label();
             this.labelResult = new System.Windows.Forms.Label();
+            this.tabPageChoiceParams = new System.Windows.Forms.TabPage();
+            this.dataGridParams = new System.Windows.Forms.DataGridView();
             this.tabPage2d = new System.Windows.Forms.TabPage();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.userControl2D1 = new _2dWPF.UserControl2D();
@@ -91,6 +93,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.radioBox = new System.Windows.Forms.RadioButton();
             this.radioHalfDiv = new System.Windows.Forms.RadioButton();
+            this.MaxCountNum = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.V2Num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.V1Num)).BeginInit();
@@ -113,8 +117,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.WorkShiftNum)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageResult.SuspendLayout();
+            this.tabPageChoiceParams.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridParams)).BeginInit();
             this.tabPage2d.SuspendLayout();
             this.tabPage3d.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxCountNum)).BeginInit();
             this.SuspendLayout();
             // 
             // formula
@@ -383,9 +390,9 @@
             this.groupBox1.Controls.Add(this.bettaLabel);
             this.groupBox1.Controls.Add(this.alpha1Label);
             this.groupBox1.Controls.Add(this.alphaLabel);
-            this.groupBox1.Location = new System.Drawing.Point(6, 57);
+            this.groupBox1.Location = new System.Drawing.Point(10, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(171, 268);
+            this.groupBox1.Size = new System.Drawing.Size(171, 293);
             this.groupBox1.TabIndex = 48;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Входные параметры";
@@ -560,7 +567,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.StepLabel);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(183, 57);
+            this.groupBox2.Location = new System.Drawing.Point(187, 40);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(265, 158);
             this.groupBox2.TabIndex = 49;
@@ -691,6 +698,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.MaxCountNum);
+            this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.CostPriceNum);
             this.groupBox3.Controls.Add(this.WorkShiftNum);
@@ -701,9 +710,9 @@
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.Accuracy);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.Location = new System.Drawing.Point(183, 221);
+            this.groupBox3.Location = new System.Drawing.Point(187, 204);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(265, 104);
+            this.groupBox3.Size = new System.Drawing.Size(265, 129);
             this.groupBox3.TabIndex = 50;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Константы";
@@ -754,7 +763,7 @@
             // CalculationButton
             // 
             this.CalculationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CalculationButton.Location = new System.Drawing.Point(235, 339);
+            this.CalculationButton.Location = new System.Drawing.Point(254, 352);
             this.CalculationButton.Name = "CalculationButton";
             this.CalculationButton.Size = new System.Drawing.Size(122, 37);
             this.CalculationButton.TabIndex = 51;
@@ -765,12 +774,13 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPageResult);
+            this.tabControl1.Controls.Add(this.tabPageChoiceParams);
             this.tabControl1.Controls.Add(this.tabPage2d);
             this.tabControl1.Controls.Add(this.tabPage3d);
             this.tabControl1.Location = new System.Drawing.Point(454, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(506, 364);
+            this.tabControl1.Size = new System.Drawing.Size(506, 381);
             this.tabControl1.TabIndex = 52;
             // 
             // tabPageResult
@@ -779,7 +789,7 @@
             this.tabPageResult.Controls.Add(this.labelResult);
             this.tabPageResult.Location = new System.Drawing.Point(4, 22);
             this.tabPageResult.Name = "tabPageResult";
-            this.tabPageResult.Size = new System.Drawing.Size(498, 338);
+            this.tabPageResult.Size = new System.Drawing.Size(498, 355);
             this.tabPageResult.TabIndex = 2;
             this.tabPageResult.Text = "Результат";
             this.tabPageResult.UseVisualStyleBackColor = true;
@@ -804,13 +814,34 @@
             this.labelResult.Text = "Минимальное значение целевой функции:\r\nОптимальное значение А1:\r\nОптимальное знач" +
     "ение А2:\r\n\r\nМинимальная себестоимость целевого\r\nпродукта за рабочую смену:";
             // 
+            // tabPageChoiceParams
+            // 
+            this.tabPageChoiceParams.Controls.Add(this.dataGridParams);
+            this.tabPageChoiceParams.Location = new System.Drawing.Point(4, 22);
+            this.tabPageChoiceParams.Name = "tabPageChoiceParams";
+            this.tabPageChoiceParams.Size = new System.Drawing.Size(498, 355);
+            this.tabPageChoiceParams.TabIndex = 3;
+            this.tabPageChoiceParams.Text = "Выбор параметров";
+            this.tabPageChoiceParams.UseVisualStyleBackColor = true;
+            // 
+            // dataGridParams
+            // 
+            this.dataGridParams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridParams.Location = new System.Drawing.Point(3, 3);
+            this.dataGridParams.Name = "dataGridParams";
+            this.dataGridParams.ReadOnly = true;
+            this.dataGridParams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridParams.Size = new System.Drawing.Size(492, 349);
+            this.dataGridParams.TabIndex = 0;
+            this.dataGridParams.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridParams_CellClick);
+            // 
             // tabPage2d
             // 
             this.tabPage2d.Controls.Add(this.elementHost1);
             this.tabPage2d.Location = new System.Drawing.Point(4, 22);
             this.tabPage2d.Name = "tabPage2d";
             this.tabPage2d.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2d.Size = new System.Drawing.Size(498, 338);
+            this.tabPage2d.Size = new System.Drawing.Size(498, 355);
             this.tabPage2d.TabIndex = 0;
             this.tabPage2d.Text = "2D график";
             this.tabPage2d.UseVisualStyleBackColor = true;
@@ -819,7 +850,7 @@
             // 
             this.elementHost1.Location = new System.Drawing.Point(0, 0);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(495, 338);
+            this.elementHost1.Size = new System.Drawing.Size(495, 352);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.userControl2D1;
@@ -830,7 +861,7 @@
             this.tabPage3d.Location = new System.Drawing.Point(4, 22);
             this.tabPage3d.Name = "tabPage3d";
             this.tabPage3d.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3d.Size = new System.Drawing.Size(498, 338);
+            this.tabPage3d.Size = new System.Drawing.Size(498, 355);
             this.tabPage3d.TabIndex = 1;
             this.tabPage3d.Text = "3D график";
             this.tabPage3d.UseVisualStyleBackColor = true;
@@ -839,7 +870,7 @@
             // 
             this.elementHost2.Location = new System.Drawing.Point(0, 0);
             this.elementHost2.Name = "elementHost2";
-            this.elementHost2.Size = new System.Drawing.Size(498, 338);
+            this.elementHost2.Size = new System.Drawing.Size(498, 352);
             this.elementHost2.TabIndex = 0;
             this.elementHost2.Text = "elementHost2";
             this.elementHost2.Child = this.userControl3D1;
@@ -857,7 +888,7 @@
             // 
             this.radioBox.AutoSize = true;
             this.radioBox.Checked = true;
-            this.radioBox.Location = new System.Drawing.Point(16, 335);
+            this.radioBox.Location = new System.Drawing.Point(35, 348);
             this.radioBox.Name = "radioBox";
             this.radioBox.Size = new System.Drawing.Size(91, 17);
             this.radioBox.TabIndex = 54;
@@ -868,18 +899,49 @@
             // radioHalfDiv
             // 
             this.radioHalfDiv.AutoSize = true;
-            this.radioHalfDiv.Location = new System.Drawing.Point(16, 359);
+            this.radioHalfDiv.Location = new System.Drawing.Point(35, 372);
             this.radioHalfDiv.Name = "radioHalfDiv";
             this.radioHalfDiv.Size = new System.Drawing.Size(170, 17);
             this.radioHalfDiv.TabIndex = 55;
             this.radioHalfDiv.Text = "Метод половинного деления";
             this.radioHalfDiv.UseVisualStyleBackColor = true;
             // 
+            // MaxCountNum
+            // 
+            this.MaxCountNum.Location = new System.Drawing.Point(163, 96);
+            this.MaxCountNum.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.MaxCountNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxCountNum.Name = "MaxCountNum";
+            this.MaxCountNum.Size = new System.Drawing.Size(88, 20);
+            this.MaxCountNum.TabIndex = 60;
+            this.MaxCountNum.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 98);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(137, 13);
+            this.label13.TabIndex = 59;
+            this.label13.Text = "Макс. кол-во вычислений";
+            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(972, 388);
+            this.ClientSize = new System.Drawing.Size(972, 405);
             this.Controls.Add(this.radioHalfDiv);
             this.Controls.Add(this.radioBox);
             this.Controls.Add(this.label12);
@@ -917,8 +979,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageResult.ResumeLayout(false);
             this.tabPageResult.PerformLayout();
+            this.tabPageChoiceParams.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridParams)).EndInit();
             this.tabPage2d.ResumeLayout(false);
             this.tabPage3d.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MaxCountNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -989,5 +1054,9 @@
         private System.Windows.Forms.Label labelDrawing;
         private System.Windows.Forms.RadioButton radioBox;
         private System.Windows.Forms.RadioButton radioHalfDiv;
+        private System.Windows.Forms.TabPage tabPageChoiceParams;
+        private System.Windows.Forms.DataGridView dataGridParams;
+        private System.Windows.Forms.NumericUpDown MaxCountNum;
+        private System.Windows.Forms.Label label13;
     }
 }
