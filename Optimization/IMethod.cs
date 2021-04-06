@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Optimization
 {
     interface IMethod
     {
-        Point GetMinimumValue(InputData inputs);
+        Point GetMinimumValue(InputData inputs, Func<double, double, double> func);
     }
 }

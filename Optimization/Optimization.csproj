@@ -85,8 +85,9 @@
       <DependentUpon>AuthForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BoxMethod.cs" />
+    <Compile Include="DatabaseConnection.cs" />
+    <Compile Include="CalculationMethodException.cs" />
     <Compile Include="HalfDivisionMethod.cs" />
-    <Compile Include="Hashs.cs" />
     <Compile Include="IMethod.cs" />
     <Compile Include="InputData.cs" />
     <Compile Include="Point.cs" />

@@ -13,7 +13,7 @@ namespace _2dWPF
         public UserControl3D()
         {
             // Set this code once in App.xaml.cs or application startup
-            SciChartSurface.SetRuntimeLicenseKey("wQ3ubo6xxwmyuf9HPLLBkrmuh37aKwUwPc4SpMd++em/4gwJXNuG/7ypSaCHlH3gPXdJ9n4LQOICLqA4pYThVGTWqKL1/C6mxbLMwT5WhHha5Fl+aIXVQWio5vUTutcQU0oegcT8y3PTiDRxN7z0R5eyPQZJaCdzhXhBdeAkIk9hTxur4b2UYQ8sZycPhc/No0zZl1ANa25T/m+FYPtpYMDl+3qQ6fK+C1VpV+IheFPldCqyEJ/NJVMV0OtLMz4WrTUNFsnthwg0oHez0bdimaHV6d6M1VsGUAkpnmZ5B9BA9eY71ZEvqFrJTjKwOA+oZ8x3BYiu0mGx9qPOPCpFwEjtp+B0rcYkWX7EniTf9/SCz+PstMLCM8aNJsLlrwIG1B85SQq37hPBVp+ROdhl+zkoR9SKD1gQPUQVnH4aZ1pQZtkUZyzgYl8ekUEJrV9Cki58/5CQcAb9eDm8ID0MMHdqdaW3tm2bJR9kXc9hF6pA12ZIbjpmKqDrsQAsoXITgB4XxkeDoxDw5sbBWfjz3tYE5Ji3+4czmaEIuHLDr9hxTVsjDwl34/aZqdzw886RB34GVH1o94CTvPDM");
+            //SciChartSurface.SetRuntimeLicenseKey("wQ3ubo6xxwmyuf9HPLLBkrmuh37aKwUwPc4SpMd++em/4gwJXNuG/7ypSaCHlH3gPXdJ9n4LQOICLqA4pYThVGTWqKL1/C6mxbLMwT5WhHha5Fl+aIXVQWio5vUTutcQU0oegcT8y3PTiDRxN7z0R5eyPQZJaCdzhXhBdeAkIk9hTxur4b2UYQ8sZycPhc/No0zZl1ANa25T/m+FYPtpYMDl+3qQ6fK+C1VpV+IheFPldCqyEJ/NJVMV0OtLMz4WrTUNFsnthwg0oHez0bdimaHV6d6M1VsGUAkpnmZ5B9BA9eY71ZEvqFrJTjKwOA+oZ8x3BYiu0mGx9qPOPCpFwEjtp+B0rcYkWX7EniTf9/SCz+PstMLCM8aNJsLlrwIG1B85SQq37hPBVp+ROdhl+zkoR9SKD1gQPUQVnH4aZ1pQZtkUZyzgYl8ekUEJrV9Cki58/5CQcAb9eDm8ID0MMHdqdaW3tm2bJR9kXc9hF6pA12ZIbjpmKqDrsQAsoXITgB4XxkeDoxDw5sbBWfjz3tYE5Ji3+4czmaEIuHLDr9hxTVsjDwl34/aZqdzw886RB34GVH1o94CTvPDM");
             InitializeComponent();
 
             //var meshDataSeries = FillSeries(10, 10);

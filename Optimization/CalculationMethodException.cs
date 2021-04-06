@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Optimization
 {
-    enum Hashes
+    class CalculationMethodException : Exception
     {
-        login = -1608752113,
-        passwordUser = -842352753,
-        passwordAdmin = -842352754
+        public CalculationMethodException(string message) : base(message) { }
     }
 }

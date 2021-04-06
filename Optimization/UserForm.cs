@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Linq;
-using wpf = _2dWPF;
-using System.Data;
-using System.Data.SQLite;
 
 namespace Optimization
 {
     public partial class UserForm : Form
     {
-        private SQLiteConnection sql_con = new SQLiteConnection("DataSource=optimization.db;Version=3;New=False;Compress=True");
 
         public UserForm()
         {
             InitializeComponent();
-            LoadData("params", dataGridParams);
+            DatabaseConnection.LoadDataTable("params", dataGridParams);
         }
 
         private void CalculationButton_Click(object sender, EventArgs e)
@@ -60,17 +54,29 @@ namespace Optimization
             }
 
             bool isBox = radioBox.Checked;
-            Point result;
+            IMethod method = null;
             if (isBox)
-                result = BoxMethod.GetMinimumValue(inputData);
+                method = new BoxMethod();
             else
-                result = HalfDivisionMethod.GetMinimumValue(inputData);
+                method = new HalfDivisionMethod();
 
-            if (result == null)
+            double func(double x, double y)
             {
-                MessageBox.Show("Программа не смогла найти экстремум,\n попробуйте на других параметрах", "Ошибка!");
+                return Math.Pow(inputData.alpha * (x * x + inputData.betta * y - inputData.mu * inputData.V1), inputData.N) +
+                       Math.Pow(inputData.alpha1 * (inputData.betta1 * x + y * y - inputData.mu1 * inputData.V2), inputData.N);
+            }
+
+            Point result;
+            try
+            {
+                result = method.GetMinimumValue(inputData, func);
+            }
+            catch (CalculationMethodException ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!");
                 return;
             }
+
             double minPrice = Math.Round(inputData.workShift * inputData.costPrice * result.Value, 0);
             double minF = Math.Round(result.Value, 3);
             double optimalA1 = Math.Round(result.X, 3);
@@ -80,37 +86,22 @@ namespace Optimization
                 + optimalA1 + " м^3/ч\r\nОптимальное значение А2: " + optimalA2 + " м^3/ч\r\n\r\nМинимальная себестоимость" +
                 " целевого\r\nпродукта за рабочую смену: " + minPrice + " у.е.";
 
-            int lengthA1 = (int)(RightBorderA1Num.Value - LeftBorderA1Num.Value);
-            int lengthA2 = (int)(RightBorderA2Num.Value - LeftBorderA2Num.Value);
+            //int lengthA1 = (int)(RightBorderA1Num.Value - LeftBorderA1Num.Value);
+            //int lengthA2 = (int)(RightBorderA2Num.Value - LeftBorderA2Num.Value);
 
             //labelDrawing.Text = "Отрисовка...";
 
-            var userControl2D = elementHost1.Child as wpf.UserControl2D;
+            //var userControl2D = elementHost1.Child as wpf.UserControl2D;
             //userControl2D.Drawing2D(inputData.alpha, inputData.alpha1, inputData.betta, inputData.betta1, inputData.mu, inputData.mu1, inputData.N, inputData.V1, inputData.V2,
-                             //(int)LeftBorderA1Num.Value, (int)LeftBorderA2Num.Value, lengthA1, lengthA2);
+            //(int)LeftBorderA1Num.Value, (int)LeftBorderA2Num.Value, lengthA1, lengthA2);
 
-            var userControl3D = elementHost2.Child as wpf.UserControl3D;
+            //var userControl3D = elementHost2.Child as wpf.UserControl3D;
             //userControl3D.Drawing3D(inputData.alpha, inputData.alpha1, inputData.betta, inputData.betta1, inputData.mu, inputData.mu1, inputData.N, inputData.V1, inputData.V2,
-                             //(int)LeftBorderA1Num.Value, (int)LeftBorderA2Num.Value, lengthA1, lengthA2);
+            //(int)LeftBorderA1Num.Value, (int)LeftBorderA2Num.Value, lengthA1, lengthA2);
 
             //labelDrawing.Text = "Отрисовка окончена";
 
 
-        }
-
-        private void LoadData(string table, DataGridView dataGrid)
-        {
-            sql_con.Open();
-            SQLiteCommand sql_cmd = sql_con.CreateCommand();
-            string CommandText = "select * from " + table;
-            SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
-            DataSet DS = new DataSet();
-            DataTable DT = new DataTable();
-            DS.Reset();
-            DB.Fill(DS);
-            DT = DS.Tables[0];
-            dataGrid.DataSource = DT;
-            sql_con.Close();
         }
 
         private void dataGridParams_CellClick(object sender, DataGridViewCellEventArgs e)

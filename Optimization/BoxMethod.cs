@@ -6,21 +6,15 @@ using System.Threading.Tasks;
 
 namespace Optimization
 {
-    public class BoxMethod
+    public class BoxMethod : IMethod
     {
-        public static Point GetMinimumValue(InputData inputs)
+        public Point GetMinimumValue(InputData inputs, Func<double, double, double> func)
         {
             var random = new Random();
             Point finalPoint;
 
-            double func(double x, double y)
-            {
-                return Math.Pow(inputs.alpha * (x * x + inputs.betta * y - inputs.mu * inputs.V1), inputs.N) +
-                       Math.Pow(inputs.alpha1 * (inputs.betta1 * x + y * y - inputs.mu1 * inputs.V2), inputs.N);
-            }
-
             var points = GetPoints(inputs.leftBorderA1, inputs.leftBorderA2, inputs.rightBorderA1, inputs.rightBorderA2, func, inputs.maxCount);
-            if (points == null) return null;
+
             int countTry = 0;
             while (true)
             {
@@ -38,8 +32,8 @@ namespace Optimization
                     break;
                 }
 
-                countTry++;
-                if (countTry == inputs.maxCount) { return null; }
+                if (++countTry == inputs.maxCount)
+                    throw new CalculationMethodException("Превышено количество итераций при поиске экстремума");
 
                 double x0 = 2.3 * Cx - 1.3 * points[3].X;
                 double y0 = 2.3 * Cy - 1.3 * points[3].Y;
@@ -94,8 +88,9 @@ namespace Optimization
                     }
                     return correctPoints;
                 }
-                countTry++;
-                if (countTry == maxCount) { return null; }
+
+                if (++countTry == maxCount)
+                    throw new CalculationMethodException("Превышено количество итераций при генерации начальных точек");
             }
         }
     }

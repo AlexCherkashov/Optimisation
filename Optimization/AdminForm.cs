@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Data;
 using System.Windows.Forms;
-using System.Data.SQLite;
 
 namespace Optimization
 {
     public partial class AdminForm : Form
     {
-        private SQLiteConnection sql_con = new SQLiteConnection("DataSource=optimization.db;Version=3;New=False;Compress=True");
 
         public AdminForm()
         {
             InitializeComponent();
-            LoadData("users", dataGridUsers);
-            LoadData("params", dataGridParams);
+            DatabaseConnection.LoadDataTable("users", dataGridUsers);
+            DatabaseConnection.LoadDataTable("params", dataGridParams);
         }
 
         private void ChangePasswordButton_Click(object sender, EventArgs e)
@@ -28,24 +25,13 @@ namespace Optimization
             string password = textBoxPassword.Text.GetHashCode().ToString();
 
             string CommandText = $"update users set password = \"{password}\" where name = \"{login}\"";
-            ExecuteQuery(CommandText);
+            if (!DatabaseConnection.ExecuteQuery(CommandText))
+            {
+                MessageBox.Show("Возникла ошибка с базой данных!", "Ошибка!");
+                return;
+            }
 
             dataGridUsers.SelectedRows[0].Cells[1].Value = password;
-        }
-
-        private void LoadData(string table, DataGridView dataGrid)
-        {
-            sql_con.Open();
-            SQLiteCommand sql_cmd = sql_con.CreateCommand();
-            string CommandText = "select * from " + table;
-            SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
-            DataSet DS = new DataSet();
-            DataTable DT = new DataTable();
-            DS.Reset();
-            DB.Fill(DS);
-            DT = DS.Tables[0];
-            dataGrid.DataSource = DT;
-            sql_con.Close();
         }
 
         private void dataGridUsers_CellClick(object sender, EventArgs e)
@@ -99,7 +85,8 @@ namespace Optimization
                      $"{DecimalToString(NNum.Value)},{DecimalToString(V1Num.Value)},{DecimalToString(V2Num.Value)}," +
                      $"{DecimalToString(WorkShiftNum.Value)},{DecimalToString(CostPriceNum.Value)}," +
                      $"{DecimalToString(AccuracyNum.Value)},{DecimalToString(MaxCountNum.Value)})";
-            ExecuteQuery(CommandText);
+            DatabaseConnection.ExecuteQuery(CommandText);
+            DatabaseConnection.LoadDataTable("params", dataGridParams);
         }
 
         private string DecimalToString(decimal value)
@@ -117,31 +104,12 @@ namespace Optimization
             }
 
             string CommandText = $"delete from params where id = {id}";
-            ExecuteQuery(CommandText);
-
-        }
-
-        private void ExecuteQuery(string txtQuery)
-        {
-            try
-            {
-                sql_con.Open();
-                SQLiteCommand sql_cmd = sql_con.CreateCommand();
-                sql_cmd.CommandText = txtQuery;
-                sql_cmd.ExecuteNonQuery();
-            }
-            catch
+            if (!DatabaseConnection.ExecuteQuery(CommandText))
             {
                 MessageBox.Show("Возникла ошибка с базой данных!", "Ошибка!");
                 return;
             }
-            finally
-            {
-                sql_con.Close();
-            }
-
-            MessageBox.Show("Запрос выполнен!");
-            LoadData("params", dataGridParams);
+            DatabaseConnection.LoadDataTable("params", dataGridParams);
         }
 
         private void buttonUpdateParams_Click(object sender, EventArgs e)
@@ -174,7 +142,12 @@ namespace Optimization
                 $" maxCount = {DecimalToString(MaxCountNum.Value)}" +
                 $" where id = {id}";
 
-            ExecuteQuery(CommandText);
+            if (!DatabaseConnection.ExecuteQuery(CommandText))
+            {
+                MessageBox.Show("Возникла ошибка с базой данных!", "Ошибка!");
+                return;
+            }
+            DatabaseConnection.LoadDataTable("params", dataGridParams);
         }
     }
 }

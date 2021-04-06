@@ -74,6 +74,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.AccuracyNum = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.MaxCountNum = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.CostPriceNum = new System.Windows.Forms.NumericUpDown();
             this.WorkShiftNum = new System.Windows.Forms.NumericUpDown();
@@ -93,8 +95,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.radioBox = new System.Windows.Forms.RadioButton();
             this.radioHalfDiv = new System.Windows.Forms.RadioButton();
-            this.MaxCountNum = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.V2Num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.V1Num)).BeginInit();
@@ -113,6 +113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.LeftBorderA1Num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AccuracyNum)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxCountNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CostPriceNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WorkShiftNum)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -121,7 +122,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridParams)).BeginInit();
             this.tabPage2d.SuspendLayout();
             this.tabPage3d.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxCountNum)).BeginInit();
             this.SuspendLayout();
             // 
             // formula
@@ -717,6 +717,37 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Константы";
             // 
+            // MaxCountNum
+            // 
+            this.MaxCountNum.Location = new System.Drawing.Point(163, 96);
+            this.MaxCountNum.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.MaxCountNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxCountNum.Name = "MaxCountNum";
+            this.MaxCountNum.Size = new System.Drawing.Size(88, 20);
+            this.MaxCountNum.TabIndex = 60;
+            this.MaxCountNum.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 98);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(137, 13);
+            this.label13.TabIndex = 59;
+            this.label13.Text = "Макс. кол-во вычислений";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -843,7 +874,7 @@
             this.tabPage2d.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2d.Size = new System.Drawing.Size(498, 355);
             this.tabPage2d.TabIndex = 0;
-            this.tabPage2d.Text = "2D график";
+            this.tabPage2d.Text = "//";
             this.tabPage2d.UseVisualStyleBackColor = true;
             // 
             // elementHost1
@@ -863,7 +894,7 @@
             this.tabPage3d.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3d.Size = new System.Drawing.Size(498, 355);
             this.tabPage3d.TabIndex = 1;
-            this.tabPage3d.Text = "3D график";
+            this.tabPage3d.Text = "//";
             this.tabPage3d.UseVisualStyleBackColor = true;
             // 
             // elementHost2
@@ -906,37 +937,6 @@
             this.radioHalfDiv.Text = "Метод половинного деления";
             this.radioHalfDiv.UseVisualStyleBackColor = true;
             // 
-            // MaxCountNum
-            // 
-            this.MaxCountNum.Location = new System.Drawing.Point(163, 96);
-            this.MaxCountNum.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.MaxCountNum.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.MaxCountNum.Name = "MaxCountNum";
-            this.MaxCountNum.Size = new System.Drawing.Size(88, 20);
-            this.MaxCountNum.TabIndex = 60;
-            this.MaxCountNum.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 98);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(137, 13);
-            this.label13.TabIndex = 59;
-            this.label13.Text = "Макс. кол-во вычислений";
-            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -974,6 +974,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AccuracyNum)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxCountNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CostPriceNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WorkShiftNum)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -983,7 +984,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridParams)).EndInit();
             this.tabPage2d.ResumeLayout(false);
             this.tabPage3d.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MaxCountNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
