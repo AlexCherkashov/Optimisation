@@ -10,17 +10,24 @@ namespace Optimization
 
         public static void LoadDataTable(string table, DataGridView dataGrid)
         {
-            sql_con.Open();
-            SQLiteCommand sql_cmd = sql_con.CreateCommand();
-            string CommandText = "select * from " + table;
-            SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
-            DataSet DS = new DataSet();
-            DataTable DT = new DataTable();
-            DS.Reset();
-            DB.Fill(DS);
-            DT = DS.Tables[0];
-            dataGrid.DataSource = DT;
-            sql_con.Close();
+            try
+            {
+                sql_con.Open();
+                SQLiteCommand sql_cmd = sql_con.CreateCommand();
+                string CommandText = "select * from " + table;
+                SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
+                DataSet DS = new DataSet();
+                DataTable DT = new DataTable();
+                DS.Reset();
+                DB.Fill(DS);
+                DT = DS.Tables[0];
+                dataGrid.DataSource = DT;
+                sql_con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно загрузить данные из базы", "Ошибка!");
+            }
         }
 
         public static bool ExecuteQuery(string txtQuery)

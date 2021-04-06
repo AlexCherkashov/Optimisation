@@ -14,8 +14,7 @@ namespace Optimization
 
         private void CalculationButton_Click(object sender, EventArgs e)
         {
-
-            labelDrawing.Text = "";
+            //labelDrawing.Text = "";
 
             InputData inputData = new InputData
             {
@@ -53,12 +52,9 @@ namespace Optimization
                 return;
             }
 
-            bool isBox = radioBox.Checked;
             IMethod method = null;
-            if (isBox)
-                method = new BoxMethod();
-            else
-                method = new HalfDivisionMethod();
+            if (radioBox.Checked)       method = new BoxMethod();
+            if (radioHalfDiv.Checked)   method = new HalfDivisionMethod();
 
             double func(double x, double y)
             {
@@ -66,25 +62,23 @@ namespace Optimization
                        Math.Pow(inputData.alpha1 * (inputData.betta1 * x + y * y - inputData.mu1 * inputData.V2), inputData.N);
             }
 
-            Point result;
             try
             {
-                result = method.GetMinimumValue(inputData, func);
+                Point result = method.GetMinimumValue(inputData, func);
+                double minPrice = Math.Round(inputData.workShift * inputData.costPrice * result.Value, 0);
+                double minF = Math.Round(result.Value, 3);
+                double optimalA1 = Math.Round(result.X, 3);
+                double optimalA2 = Math.Round(result.Y, 3);
+
+                labelResult.Text = "Минимальное значение целевой функции: " + minF + " кг/ч\r\nОптимальное значение А1: "
+                    + optimalA1 + " м^3/ч\r\nОптимальное значение А2: " + optimalA2 + " м^3/ч\r\n\r\nМинимальная себестоимость" +
+                    " целевого\r\nпродукта за рабочую смену: " + minPrice + " у.е.";
             }
             catch (CalculationMethodException ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка!");
                 return;
             }
-
-            double minPrice = Math.Round(inputData.workShift * inputData.costPrice * result.Value, 0);
-            double minF = Math.Round(result.Value, 3);
-            double optimalA1 = Math.Round(result.X, 3);
-            double optimalA2 = Math.Round(result.Y, 3);
-
-            labelResult.Text = "Минимальное значение целевой функции: " + minF + " кг/ч\r\nОптимальное значение А1: "
-                + optimalA1 + " м^3/ч\r\nОптимальное значение А2: " + optimalA2 + " м^3/ч\r\n\r\nМинимальная себестоимость" +
-                " целевого\r\nпродукта за рабочую смену: " + minPrice + " у.е.";
 
             //int lengthA1 = (int)(RightBorderA1Num.Value - LeftBorderA1Num.Value);
             //int lengthA2 = (int)(RightBorderA2Num.Value - LeftBorderA2Num.Value);
@@ -100,8 +94,6 @@ namespace Optimization
             //(int)LeftBorderA1Num.Value, (int)LeftBorderA2Num.Value, lengthA1, lengthA2);
 
             //labelDrawing.Text = "Отрисовка окончена";
-
-
         }
 
         private void dataGridParams_CellClick(object sender, DataGridViewCellEventArgs e)
