@@ -12,9 +12,7 @@ namespace Optimization
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-
             string login = loginTextBox.Text;
-            string password = passTextBox.Text.GetHashCode().ToString();
             object result = DatabaseConnection.GetPassword(login);
 
             if (result == null)
@@ -24,7 +22,7 @@ namespace Optimization
             }
 
             string dbPassword = result.ToString();
-            if (!(dbPassword == password))
+            if (!Hashing.VerifyHash(passTextBox.Text, dbPassword))
             {
                 WrongInput();
                 return;

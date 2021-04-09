@@ -22,7 +22,7 @@ namespace Optimization
             };
 
             string login = labelLogin.Text;
-            string password = textBoxPassword.Text.GetHashCode().ToString();
+            string password = Hashing.GetHash(textBoxPassword.Text);
 
             string CommandText = $"update users set password = \"{password}\" where name = \"{login}\"";
             if (!DatabaseConnection.ExecuteQuery(CommandText))
