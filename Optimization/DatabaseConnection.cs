@@ -14,15 +14,11 @@ namespace Optimization
             try
             {
                 sql_con.Open();
-                SQLiteCommand sql_cmd = sql_con.CreateCommand();
                 string CommandText = "select * from " + table;
                 SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
                 DataSet DS = new DataSet();
-                DataTable DT = new DataTable();
-                DS.Reset();
                 DB.Fill(DS);
-                DT = DS.Tables[0];
-                dataGrid.DataSource = DT;
+                dataGrid.DataSource = DS.Tables[0];
             }
             catch
             {
@@ -93,7 +89,6 @@ namespace Optimization
         {
             bool isExsist = true;
             sql_con.Open();
-            SQLiteCommand sql_cmd = sql_con.CreateCommand();
             SQLiteCommand command = new SQLiteCommand
             {
                 Connection = sql_con,
@@ -112,7 +107,6 @@ namespace Optimization
         {
             int count = 0;
             sql_con.Open();
-            SQLiteCommand sql_cmd = sql_con.CreateCommand();
             SQLiteCommand command = new SQLiteCommand
             {
                 Connection = sql_con,
@@ -125,7 +119,6 @@ namespace Optimization
             }
 
             bool isAdmin = false;
-            sql_cmd = sql_con.CreateCommand();
             command = new SQLiteCommand
             {
                 Connection = sql_con,
@@ -137,6 +130,7 @@ namespace Optimization
                 isAdmin = sqlReader.GetBoolean(0);
             }
             sql_con.Close();
+
             return isAdmin && (count == 1);
         }
     }
