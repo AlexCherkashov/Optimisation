@@ -13,35 +13,33 @@ namespace Optimization
         private void StartButton_Click(object sender, EventArgs e)
         {
             string login = loginTextBox.Text;
-            object result = DatabaseConnection.GetPassword(login);
+            Tuple<bool, string> dbData = DatabaseConnection.GetPassword(login);
 
-            if (result == null)
+            if (dbData == null)
             {
                 WrongInput();
                 return;
             }
 
-            string dbPassword = result.ToString();
+            bool isAdmin = dbData.Item1;
+            string dbPassword = dbData.Item2;
             if (!Hashing.VerifyHash(passTextBox.Text, dbPassword))
             {
                 WrongInput();
                 return;
             }
 
-            switch (login)
+            Form form = null;
+            switch (isAdmin)
             {
-                case "admin":
-                    AdminForm adminForm = new AdminForm();
-                    adminForm.Show();
+                case true:
+                    form = new AdminForm();
                     break;
-                case "user":
-                    UserForm userForm = new UserForm();
-                    userForm.Show();
+                case false:
+                    form = new UserForm();
                     break;
-                default:
-                    WrongInput();
-                    return;
             }
+            form.ShowDialog();
         }
 
         private void WrongInput()

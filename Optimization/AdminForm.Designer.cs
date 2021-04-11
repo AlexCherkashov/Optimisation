@@ -30,10 +30,15 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.UserIDLabel = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.UserTextBox = new System.Windows.Forms.TextBox();
+            this.DeleteUsersButton = new System.Windows.Forms.Button();
+            this.AddUsersButton = new System.Windows.Forms.Button();
+            this.isAdminCheckBox = new System.Windows.Forms.CheckBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.ChangePasswordButton = new System.Windows.Forms.Button();
+            this.ChangeUsersButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.labelLogin = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridUsers = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -133,10 +138,15 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.UserIDLabel);
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.UserTextBox);
+            this.tabPage1.Controls.Add(this.DeleteUsersButton);
+            this.tabPage1.Controls.Add(this.AddUsersButton);
+            this.tabPage1.Controls.Add(this.isAdminCheckBox);
             this.tabPage1.Controls.Add(this.textBoxPassword);
-            this.tabPage1.Controls.Add(this.ChangePasswordButton);
+            this.tabPage1.Controls.Add(this.ChangeUsersButton);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.labelLogin);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.dataGridUsers);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -147,48 +157,100 @@
             this.tabPage1.Text = "Пользователи";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // UserIDLabel
+            // 
+            this.UserIDLabel.AutoSize = true;
+            this.UserIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UserIDLabel.Location = new System.Drawing.Point(670, 20);
+            this.UserIDLabel.Name = "UserIDLabel";
+            this.UserIDLabel.Size = new System.Drawing.Size(0, 20);
+            this.UserIDLabel.TabIndex = 12;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Location = new System.Drawing.Point(634, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(30, 20);
+            this.label16.TabIndex = 11;
+            this.label16.Text = "ID:";
+            // 
+            // UserTextBox
+            // 
+            this.UserTextBox.Location = new System.Drawing.Point(670, 49);
+            this.UserTextBox.Name = "UserTextBox";
+            this.UserTextBox.Size = new System.Drawing.Size(100, 20);
+            this.UserTextBox.TabIndex = 10;
+            // 
+            // DeleteUsersButton
+            // 
+            this.DeleteUsersButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DeleteUsersButton.Location = new System.Drawing.Point(523, 198);
+            this.DeleteUsersButton.Name = "DeleteUsersButton";
+            this.DeleteUsersButton.Size = new System.Drawing.Size(128, 38);
+            this.DeleteUsersButton.TabIndex = 9;
+            this.DeleteUsersButton.Text = "Удалить";
+            this.DeleteUsersButton.UseVisualStyleBackColor = true;
+            this.DeleteUsersButton.Click += new System.EventHandler(this.DeleteUsersButton_Click);
+            // 
+            // AddUsersButton
+            // 
+            this.AddUsersButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddUsersButton.Location = new System.Drawing.Point(670, 147);
+            this.AddUsersButton.Name = "AddUsersButton";
+            this.AddUsersButton.Size = new System.Drawing.Size(128, 38);
+            this.AddUsersButton.TabIndex = 8;
+            this.AddUsersButton.Text = "Добавить";
+            this.AddUsersButton.UseVisualStyleBackColor = true;
+            this.AddUsersButton.Click += new System.EventHandler(this.AddUsersButton_Click);
+            // 
+            // isAdminCheckBox
+            // 
+            this.isAdminCheckBox.AutoSize = true;
+            this.isAdminCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.isAdminCheckBox.Location = new System.Drawing.Point(529, 75);
+            this.isAdminCheckBox.Name = "isAdminCheckBox";
+            this.isAdminCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.isAdminCheckBox.Size = new System.Drawing.Size(154, 24);
+            this.isAdminCheckBox.TabIndex = 7;
+            this.isAdminCheckBox.Text = ":Администратор";
+            this.isAdminCheckBox.UseVisualStyleBackColor = true;
+            // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(381, 61);
+            this.textBoxPassword.Location = new System.Drawing.Point(670, 105);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(100, 20);
             this.textBoxPassword.TabIndex = 5;
+            this.textBoxPassword.UseSystemPasswordChar = true;
             // 
-            // ChangePasswordButton
+            // ChangeUsersButton
             // 
-            this.ChangePasswordButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ChangePasswordButton.Location = new System.Drawing.Point(291, 103);
-            this.ChangePasswordButton.Name = "ChangePasswordButton";
-            this.ChangePasswordButton.Size = new System.Drawing.Size(171, 39);
-            this.ChangePasswordButton.TabIndex = 4;
-            this.ChangePasswordButton.Text = "Изменить пароль";
-            this.ChangePasswordButton.UseVisualStyleBackColor = true;
-            this.ChangePasswordButton.Click += new System.EventHandler(this.ChangePasswordButton_Click);
+            this.ChangeUsersButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ChangeUsersButton.Location = new System.Drawing.Point(525, 147);
+            this.ChangeUsersButton.Name = "ChangeUsersButton";
+            this.ChangeUsersButton.Size = new System.Drawing.Size(128, 38);
+            this.ChangeUsersButton.TabIndex = 4;
+            this.ChangeUsersButton.Text = "Изменить";
+            this.ChangeUsersButton.UseVisualStyleBackColor = true;
+            this.ChangeUsersButton.Click += new System.EventHandler(this.ChangeUsersButton_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(291, 59);
+            this.label3.Location = new System.Drawing.Point(593, 103);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 20);
             this.label3.TabIndex = 3;
             this.label3.Text = "Пароль:";
             // 
-            // labelLogin
-            // 
-            this.labelLogin.AutoSize = true;
-            this.labelLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelLogin.Location = new System.Drawing.Point(377, 26);
-            this.labelLogin.Name = "labelLogin";
-            this.labelLogin.Size = new System.Drawing.Size(0, 20);
-            this.labelLogin.TabIndex = 2;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(303, 26);
+            this.label1.Location = new System.Drawing.Point(605, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 20);
             this.label1.TabIndex = 1;
@@ -201,7 +263,7 @@
             this.dataGridUsers.Name = "dataGridUsers";
             this.dataGridUsers.ReadOnly = true;
             this.dataGridUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridUsers.Size = new System.Drawing.Size(254, 377);
+            this.dataGridUsers.Size = new System.Drawing.Size(489, 377);
             this.dataGridUsers.TabIndex = 0;
             this.dataGridUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridUsers_CellClick);
             // 
@@ -928,9 +990,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(602, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(21, 20);
+            this.label2.Size = new System.Drawing.Size(30, 20);
             this.label2.TabIndex = 1;
-            this.label2.Text = "id";
+            this.label2.Text = "ID:";
             // 
             // dataGridParams
             // 
@@ -991,9 +1053,8 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox textBoxPassword;
-        private System.Windows.Forms.Button ChangePasswordButton;
+        private System.Windows.Forms.Button ChangeUsersButton;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label labelLogin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridUsers;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1053,5 +1114,11 @@
         private System.Windows.Forms.Button buttonAddParams;
         private System.Windows.Forms.NumericUpDown MaxCountNum;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button DeleteUsersButton;
+        private System.Windows.Forms.Button AddUsersButton;
+        private System.Windows.Forms.CheckBox isAdminCheckBox;
+        private System.Windows.Forms.Label UserIDLabel;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox UserTextBox;
     }
 }

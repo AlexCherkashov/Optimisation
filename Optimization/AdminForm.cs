@@ -13,38 +13,65 @@ namespace Optimization
             DatabaseConnection.LoadDataTable("params", dataGridParams);
         }
 
-        private void ChangePasswordButton_Click(object sender, EventArgs e)
+        private void ChangeUsersButton_Click(object sender, EventArgs e)
         {
-            if (labelLogin.Text == "")
+            bool isCorrectID = Int32.TryParse(UserIDLabel.Text, out int id);
+            if (!isCorrectID)
             {
-                MessageBox.Show("Выберите строку из таблицы", "Ошибка!");
+                MessageBox.Show("Выберите запись из таблицы", "Ошибка!");
                 return;
-            };
+            }
 
-            string login = labelLogin.Text;
-            string password = Hashing.GetHash(textBoxPassword.Text);
+            if (UserTextBox.Text == "")
+            {
+                MessageBox.Show("Заполните поле логина", "Ошибка!");
+                return;
+            }
 
-            string CommandText = $"update users set password = \"{password}\" where name = \"{login}\"";
-            if (!DatabaseConnection.ExecuteQuery(CommandText))
+            try
+            {
+                if (DatabaseConnection.IsLastAdmin(id) && !isAdminCheckBox.Checked)
+                {
+                    MessageBox.Show("Это последний администратор, не удаляйте его", "Ошибка!");
+                    return;
+                }
+            }
+            catch
             {
                 MessageBox.Show("Возникла ошибка с базой данных!", "Ошибка!");
                 return;
             }
 
-            dataGridUsers.SelectedRows[0].Cells[1].Value = password;
+            string login = UserTextBox.Text;
+            int isAdmin = isAdminCheckBox.Checked ? 1 : 0;
+            string password = Hashing.GetHash(textBoxPassword.Text);
+
+            string CommandText = "update users set";
+            if (textBoxPassword.Text.Length != 0) CommandText += $" password = \"{password}\",";
+            CommandText += $" isAdmin = \"{isAdmin}\"," +
+                           $" name = \"{login}\" where id = {id}";
+
+            DatabaseConnection.ExecuteQuery(CommandText);
+
+            DatabaseConnection.LoadDataTable("users", dataGridUsers);
         }
 
         private void dataGridUsers_CellClick(object sender, EventArgs e)
         {
-            labelLogin.Text = dataGridUsers.SelectedRows[0].Cells[0].Value.ToString();
-            textBoxPassword.Text = dataGridUsers.SelectedRows[0].Cells[1].Value.ToString();
+            try
+            {
+                UserIDLabel.Text = dataGridUsers.SelectedRows[0].Cells[0].Value.ToString();
+                UserTextBox.Text = dataGridUsers.SelectedRows[0].Cells[1].Value.ToString();
+                isAdminCheckBox.Checked = dataGridUsers.SelectedRows[0].Cells[2].Value.ToString() == "1";
+                textBoxPassword.Text = "";//dataGridUsers.SelectedRows[0].Cells[3].Value.ToString();
+            } catch { }
         }
 
         private void dataGridParams_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            labelID.Text = dataGridParams.SelectedRows[0].Cells[0].Value.ToString();
             try
             {
+                labelID.Text = dataGridParams.SelectedRows[0].Cells[0].Value.ToString();
                 LeftBorderA1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[1].Value.ToString());
                 RightBorderA1Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[2].Value.ToString());
                 LeftBorderA2Num.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[3].Value.ToString());
@@ -65,11 +92,7 @@ namespace Optimization
                 CostPriceNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[16].Value.ToString());
                 AccuracyNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[17].Value.ToString());
                 MaxCountNum.Value = Decimal.Parse(dataGridParams.SelectedRows[0].Cells[18].Value.ToString());
-            }
-            catch
-            {
-
-            }
+            } catch { }
         }
 
         private void buttonAddParams_Click(object sender, EventArgs e)
@@ -104,11 +127,7 @@ namespace Optimization
             }
 
             string CommandText = $"delete from params where id = {id}";
-            if (!DatabaseConnection.ExecuteQuery(CommandText))
-            {
-                MessageBox.Show("Возникла ошибка с базой данных!", "Ошибка!");
-                return;
-            }
+            DatabaseConnection.ExecuteQuery(CommandText);
             DatabaseConnection.LoadDataTable("params", dataGridParams);
         }
 
@@ -142,12 +161,58 @@ namespace Optimization
                 $" maxCount = {DecimalToString(MaxCountNum.Value)}" +
                 $" where id = {id}";
 
-            if (!DatabaseConnection.ExecuteQuery(CommandText))
+            DatabaseConnection.ExecuteQuery(CommandText);
+            DatabaseConnection.LoadDataTable("params", dataGridParams);
+        }
+
+        private void AddUsersButton_Click(object sender, EventArgs e)
+        {
+            if (UserTextBox.Text == "" || textBoxPassword.Text == "")
+            {
+                MessageBox.Show("Заполните поле логина и пароля", "Ошибка!");
+                return;
+            }
+
+            string login = UserTextBox.Text;
+            int isAdmin = isAdminCheckBox.Checked ? 1 : 0;
+            string password = Hashing.GetHash(textBoxPassword.Text);
+            if (DatabaseConnection.IsUserExsist(login))
+            {
+                MessageBox.Show("Пользователь с таким именем уже есть", "Ошибка!");
+                return;
+            }
+
+            string CommandText = $"insert into users(name, isAdmin, password) values" +
+                                $" (\"{login}\", {isAdmin}, \"{password}\")";
+            DatabaseConnection.ExecuteQuery(CommandText);
+            DatabaseConnection.LoadDataTable("users", dataGridUsers);
+        }
+
+        private void DeleteUsersButton_Click(object sender, EventArgs e)
+        {
+            bool isCorrectID = Int32.TryParse(UserIDLabel.Text, out int id);
+            if (!isCorrectID)
+            {
+                MessageBox.Show("Выберите запись из таблицы", "Ошибка!");
+                return;
+            }
+            try
+            {
+                if (DatabaseConnection.IsLastAdmin(id))
+                {
+                    MessageBox.Show("Это последний администратор, не удаляйте его", "Ошибка!");
+                    return;
+                }
+            }
+            catch
             {
                 MessageBox.Show("Возникла ошибка с базой данных!", "Ошибка!");
                 return;
             }
-            DatabaseConnection.LoadDataTable("params", dataGridParams);
+
+            string CommandText = $"delete from users where id = {id}";
+            DatabaseConnection.ExecuteQuery(CommandText);
+            DatabaseConnection.LoadDataTable("users", dataGridUsers);
         }
     }
 }
