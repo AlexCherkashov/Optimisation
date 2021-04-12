@@ -87,7 +87,7 @@
     <Compile Include="BoxMethod.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="CalculationMethodException.cs" />
-    <Compile Include="HalfDivisionMethod.cs" />
+    <Compile Include="ScanningMethod.cs" />
     <Compile Include="Hashing.cs" />
     <Compile Include="IMethod.cs" />
     <Compile Include="InputData.cs" />

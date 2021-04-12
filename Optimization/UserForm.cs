@@ -54,7 +54,7 @@ namespace Optimization
 
             IMethod method = null;
             if (radioBox.Checked)       method = new BoxMethod();
-            if (radioHalfDiv.Checked)   method = new HalfDivisionMethod();
+            if (radioScanning.Checked)  method = new ScanningMethod();
 
             double func(double x, double y)
             {

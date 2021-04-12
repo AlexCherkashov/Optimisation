@@ -2,7 +2,7 @@
 
 namespace Optimization
 {
-    public class HalfDivisionMethod : IMethod
+    public class ScanningMethod : IMethod
     {
         public Point GetMinimumValue(InputData inputs, Func<double, double, double> func)
         {

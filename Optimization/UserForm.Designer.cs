@@ -94,7 +94,7 @@
             this.userControl3D1 = new _2dWPF.UserControl3D();
             this.label12 = new System.Windows.Forms.Label();
             this.radioBox = new System.Windows.Forms.RadioButton();
-            this.radioHalfDiv = new System.Windows.Forms.RadioButton();
+            this.radioScanning = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.V2Num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.V1Num)).BeginInit();
@@ -927,22 +927,22 @@
             this.radioBox.Text = "Метод Бокса";
             this.radioBox.UseVisualStyleBackColor = true;
             // 
-            // radioHalfDiv
+            // radioScanning
             // 
-            this.radioHalfDiv.AutoSize = true;
-            this.radioHalfDiv.Location = new System.Drawing.Point(35, 372);
-            this.radioHalfDiv.Name = "radioHalfDiv";
-            this.radioHalfDiv.Size = new System.Drawing.Size(170, 17);
-            this.radioHalfDiv.TabIndex = 55;
-            this.radioHalfDiv.Text = "Метод половинного деления";
-            this.radioHalfDiv.UseVisualStyleBackColor = true;
+            this.radioScanning.AutoSize = true;
+            this.radioScanning.Location = new System.Drawing.Point(35, 372);
+            this.radioScanning.Name = "radioScanning";
+            this.radioScanning.Size = new System.Drawing.Size(132, 17);
+            this.radioScanning.TabIndex = 55;
+            this.radioScanning.Text = "Метод сканирования";
+            this.radioScanning.UseVisualStyleBackColor = true;
             // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 405);
-            this.Controls.Add(this.radioHalfDiv);
+            this.Controls.Add(this.radioScanning);
             this.Controls.Add(this.radioBox);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.tabControl1);
@@ -1053,7 +1053,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label labelDrawing;
         private System.Windows.Forms.RadioButton radioBox;
-        private System.Windows.Forms.RadioButton radioHalfDiv;
+        private System.Windows.Forms.RadioButton radioScanning;
         private System.Windows.Forms.TabPage tabPageChoiceParams;
         private System.Windows.Forms.DataGridView dataGridParams;
         private System.Windows.Forms.NumericUpDown MaxCountNum;
