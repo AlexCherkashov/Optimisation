@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Optimization
 {
@@ -11,12 +9,13 @@ namespace Optimization
         public Point GetMinimumValue(InputData inputs, Func<double, double, double> func)
         {
             var random = new Random();
-            Point finalPoint;
 
-            var points = GetPoints(inputs.leftBorderA1, inputs.leftBorderA2, inputs.rightBorderA1, inputs.rightBorderA2, func, inputs.maxCount);
+            var points = GetPoints(inputs.leftBorderA1, inputs.leftBorderA2,
+                                   inputs.rightBorderA1, inputs.rightBorderA2,
+                                   func, inputs.maxCount);
 
             int countTry = 0;
-            while (true)
+            while (countTry < inputs.maxCount)
             {
                 points = points.OrderBy(point => point.Value).ToList();
                 double sumX = points.Sum(point => point.X) - points[3].X;
@@ -27,13 +26,9 @@ namespace Optimization
                 double B = 0.25 * ((Math.Abs(Cx - points[3].X) + Math.Abs(Cx - points[0].X)) +
                                    (Math.Abs(Cy - points[3].Y) + Math.Abs(Cy - points[0].Y)));
                 if (inputs.accuracy > B)
-                {
-                    finalPoint = points[0];
-                    break;
-                }
+                    return points[0];
 
-                if (++countTry == inputs.maxCount)
-                    throw new CalculationMethodException("Превышено количество итераций при поиске экстремума");
+                countTry++;
 
                 double x0 = 2.3 * Cx - 1.3 * points[3].X;
                 double y0 = 2.3 * Cy - 1.3 * points[3].Y;
@@ -52,14 +47,17 @@ namespace Optimization
                 points[3] = newPoint;
             }
 
-            return finalPoint;
+            throw new CalculationMethodException("Превышено количество итераций при поиске экстремума");
         }
 
-        private static List<Point> GetPoints(double minX, double minY, double maxX, double maxY, Func<double, double, double> func, double maxCount)
+        private static List<Point> GetPoints(double minX, double minY,
+                                             double maxX, double maxY,
+                                             Func<double, double, double> func,
+                                             double maxCount)
         {
             int countTry = 0;
             var random = new Random();
-            while (true)
+            while (countTry < maxCount)
             {
                 var points = new List<Point>();
                 for (int i = 0; i < 4; i++)
@@ -89,9 +87,10 @@ namespace Optimization
                     return correctPoints;
                 }
 
-                if (++countTry == maxCount)
-                    throw new CalculationMethodException("Превышено количество итераций при генерации начальных точек");
+                countTry++;
             }
+
+            throw new CalculationMethodException("Превышено количество итераций при генерации начальных точек");
         }
     }
 }

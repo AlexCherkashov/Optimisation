@@ -11,76 +11,43 @@ namespace Optimization
 
         public static void LoadDataTable(string table, DataGridView dataGrid)
         {
-            try
-            {
-                sql_con.Open();
-                string CommandText = "select * from " + table;
-                SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
-                DataSet DS = new DataSet();
-                DB.Fill(DS);
-                dataGrid.DataSource = DS.Tables[0];
-            }
-            catch
-            {
-                MessageBox.Show("Невозможно загрузить данные из базы", "Ошибка!");
-            }
-            finally
-            {
-                sql_con.Close();
-            }
+            sql_con.Open();
+            string CommandText = "select * from " + table;
+            SQLiteDataAdapter DB = new SQLiteDataAdapter(CommandText, sql_con);
+            DataSet DS = new DataSet();
+            DB.Fill(DS);
+            dataGrid.DataSource = DS.Tables[0];
+            sql_con.Close();
         }
 
         public static void ExecuteQuery(string txtQuery)
         {
-            try
-            {
-                sql_con.Open();
-                SQLiteCommand sql_cmd = sql_con.CreateCommand();
-                sql_cmd.CommandText = txtQuery;
-                sql_cmd.ExecuteNonQuery();
-            }
-            catch
-            {
-                MessageBox.Show("Возникла ошибка с базой данных!", "Ошибка!");
-                return;
-            }
-            finally
-            {
-                sql_con.Close();
-            }
 
-            MessageBox.Show("Запрос выполнен!");
+            sql_con.Open();
+            SQLiteCommand sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = txtQuery;
+            sql_cmd.ExecuteNonQuery();
+            sql_con.Close();
         }
 
         public static Tuple<bool, string> GetPassword(string login)
         {
             Tuple<bool, string> result = null;
-            try
+            sql_con.Open();
+            SQLiteCommand command = new SQLiteCommand
             {
-                sql_con.Open();
-                SQLiteCommand command = new SQLiteCommand
-                {
-                    Connection = sql_con,
-                    CommandText = $"select isAdmin, password from users where name =\"{login}\""
-                };
-                SQLiteDataReader sqlReader = command.ExecuteReader();
+                Connection = sql_con,
+                CommandText = $"select isAdmin, password from users where name =\"{login}\""
+            };
+            SQLiteDataReader sqlReader = command.ExecuteReader();
 
-                while (sqlReader.Read())
-                {
-                    bool isAdmin = sqlReader.GetBoolean(0);
-                    string password = sqlReader.GetString(1);
-                    result = new Tuple<bool, string>(isAdmin, password);
-                }
-            }
-            catch
+            while (sqlReader.Read())
             {
-                MessageBox.Show("Ошибка с доступом к базе данных", "Ошибка");
-                return null;
+                bool isAdmin = sqlReader.GetBoolean(0);
+                string password = sqlReader.GetString(1);
+                result = new Tuple<bool, string>(isAdmin, password);
             }
-            finally
-            {
-                sql_con.Close();
-            }
+            sql_con.Close();
 
             return result;
         }
